@@ -1,0 +1,7 @@
+{
+	"clientID" : "203465554694-aojfepfqgfcu91e2sb4hj076aefbovis.apps.googleusercontent.com",
+	"clientSecret" : "enMNyeN8Hpct3hHS8FNXtyz5",
+	"dbURI" : "mongodb+srv://biswaonly:iambiswajit@biswa-db-dwjzc.mongodb.net/test?retryWrites=true",
+	"cookieKey" : "thenetninjaisawesomeiguess",
+	"jwtSecret" : "secrettoken"
+}
