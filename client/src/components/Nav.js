@@ -4,9 +4,12 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { logout } from "../actions/auth";
 
-const Nav = ({ auth: { isAuthenticated, loading }, logout }) => {
+const Nav = ({ auth: { isAuthenticated }, logout }) => {
   const authLinks = (
     <ul>
+      <li>
+        <Link to="/">Homepage</Link>
+      </li>
       <li>
         <Link onClick={logout} to="/">
           Log out
@@ -32,9 +35,7 @@ const Nav = ({ auth: { isAuthenticated, loading }, logout }) => {
   );
   return (
     <nav>
-      {!loading && (
-        <Fragment>{isAuthenticated ? authLinks : guestLinks}</Fragment>
-      )}
+      <Fragment>{isAuthenticated ? authLinks : guestLinks}</Fragment>
     </nav>
   );
 };

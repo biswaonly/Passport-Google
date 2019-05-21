@@ -1,13 +1,18 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useState, useEffect } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { Redirect } from "react-router-dom";
-import { login } from "../actions/auth";
+import { getUserData } from "../actions/auth";
 
-const Profile = ({ isAuthenticated }) => {
+const Profile = ({ isAuthenticated, getUserData }) => {
+  useEffect(() => {
+    getUserData();
+  }, []);
+
   if (!isAuthenticated) {
     return <Redirect to="/login" />;
   }
+
   return (
     <Fragment>
       <header>
@@ -21,7 +26,8 @@ const Profile = ({ isAuthenticated }) => {
 };
 
 Profile.prototype = {
-  isAuthenticated: PropTypes.bool
+  isAuthenticated: PropTypes.bool,
+  getUserData: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({
@@ -30,5 +36,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { login }
+  { getUserData }
 )(Profile);

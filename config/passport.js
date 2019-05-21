@@ -1,4 +1,3 @@
-// const passport = require('passport');
 const GoogleStrategy = require("passport-google-oauth").OAuth2Strategy;
 const User = require("../models/User");
 const config = require("config");
@@ -22,15 +21,10 @@ module.exports = function(passport) {
         callbackURL: "http://localhost:5000/auth/google/callback"
       },
       (accessToken, refreshToken, profile, done) => {
-        console.log(accessToken);
-        console.log(refreshToken);
-        console.log("PROFILE = ", profile);
-
         User.findOne({ googleId: profile.id }, async (err, user) => {
           try {
             if (user) {
-              console.log("user is: ", user);
-              done(null, user);
+              return done(null, user);
             }
 
             user = new User({
@@ -43,9 +37,7 @@ module.exports = function(passport) {
 
             await user.save();
 
-            console.log("PASSPORT.JS === ", user.id);
-
-            await done(null, user);
+            return done(null, user);
           } catch (err) {
             console.error(err.message);
           }

@@ -1,38 +1,32 @@
 import React, { Fragment } from "react";
-import { Link, Redirect } from "react-router-dom";
+import { Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
-import { login } from "../actions/auth";
 
-const Login = ({ isAuthenticated, login }) => {
+const Login = ({ isAuthenticated }) => {
   if (isAuthenticated) {
-    return <Redirect to="/" />;
+    return <Redirect to="/profile" />;
   }
-
   return (
     <Fragment>
       <header>
         <h1>Login using...</h1>
       </header>
       <main>
-        <Link className="google-btn" onClick={login} to="/profile">
+        <a className="google-btn" href="http://localhost:5000/auth/google">
           Google+
-        </Link>
+        </a>
       </main>
     </Fragment>
   );
 };
 
 Login.prototype = {
-  isAuthenticated: PropTypes.bool,
-  login: PropTypes.func.isRequired
+  isAuthenticated: PropTypes.bool
 };
 
 const mapStateToProps = state => ({
   isAuthenticated: state.auth.isAuthenticated
 });
 
-export default connect(
-  mapStateToProps,
-  { login }
-)(Login);
+export default connect(mapStateToProps)(Login);

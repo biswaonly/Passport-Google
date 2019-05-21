@@ -2,8 +2,8 @@ const jwt = require("jsonwebtoken");
 const config = require("config");
 
 module.exports = function(req, res, next) {
-  // Get Token From Header
-  const token = req.header("x-auth-token");
+  // Get Token From Cookies
+  const token = req.cookies.ssid;
 
   // Check if no Token
   if (!token) {
@@ -13,13 +13,10 @@ module.exports = function(req, res, next) {
   // Verify Token
   try {
     const decoded = jwt.verify(token, config.get("jwtSecret"));
-    console.log("REQ.USER",req.user);
-    
-    req.user = decoded.user;
+
+    req.ssid = decoded.user.id;
     next();
   } catch (err) {
-    console.log("ERR");
-    
     return res.status(401).json({ msg: "Token is not Valid" });
   }
 };
